@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.self.dao.UserMapper">
+  
+  <!-- 
+     namespace: 必须指定为 dao 接口的全类名
+     id: 与dao接口里面定义的方法名一致
+     resultType: 返回值类型,可以是config.xml 里面配置的别名
+     #{id}:  从传递过来的参数中取id值
+     
+     com.self.pojo.User字段名 和表不对应时，用字段别名，保持和Bean一一对应
+   -->
+  <select id="getUserById" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User where id = #{id}
+  </select>
+  
+  
+  <!-- 
+  多个参数,mybatis会做特殊处理
+  多个参数会被封装成一个map
+  	key:param1,param2...,paramN
+  #{key} 就是从map中依次取key对应的值 （不推荐这样使用）
+   -->
+  <select id="getUserByIdAndName" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User where id = #{param1} and username=#{param2}
+  </select>
+  
+  <!-- 
+  	多参数推荐使用这样的方式，接口定义加上注解
+  	public User getUserByIdAndGender(@Param("id")Integer id,@Param("username")String username);
+   -->
+  <select id="getUserByIdAndGender" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User where id = #{id} and username=#{param2}
+  </select>
+  
+  
+  <select id="getUserByMap" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User where id = #{id} and username=#{username}
+  </select>
+  
+  <!-- 
+  	mysql支持自增主键，不需要收到插入主键值，但是插入完成后，可以利用statement.useGeneratedKeys(),
+  	使用useGeneratedKeys = "true" ,执行完插入后，会自动将主键值赋值给keyProperty定义的字段id，id是bean中定义的属性
+   -->
+  <insert id="addUser" parameterType="com.self.pojo.User" useGeneratedKeys="true" keyProperty="id">
+  	insert into User(username,password) 
+  	values(#{username},#{password})
+  </insert>
+  
+  
+  <!-- 
+       oracle的主键自增策略依赖于序列，首先需要在数据库为表建立一个序列
+       databaseId: 需要在config.xml 里面配置（多数据源才会用到）
+       selectKey-keyProperty:查询出的主键值封装给bean的哪个属性
+       
+       order=BEFORE: 先运行selectKey里面的SQL语句，拿到主键值，再执行 insert语句
+   -->
+   <!-- 
+   <insert id="addUser" databaseId="oracle">
+   		<selectKey keyProperty="id" order="BEFORE">
+   			select emp_seq.nextval from dual
+   		</selectKey>
+   		insert into tbl_employee(last_name,gender,email) 
+  		values(#{id},#{lastName},#{gender},#{email})
+   </insert>
+   -->
+   
+   
+   <!-- parameterType="com.self.pojo.User" 可省略 -->
+   <update id="updateUser">
+   		update User
+   		set username=#{username},password=#{password},gender=#{gender}
+   		where id=#{id}
+   </update>
+   
+   <delete id="deleteUser">
+   		delete from User where id=#{id}
+   </delete>
+   
+   <!-- 
+   		resultType 如果返回值为集合，要写成集合中元素的类型
+    -->
+   <select id="getUsersByLastNameLike" resultType="com.self.pojo.User">
+   		select * from User where username like #{username}
+   </select>
+   
+   
+   <select id="getUserByIdReturnMap" resultType="map">
+   		select * from User where id=#{id}
+   </select>
+   
+   <select id="getUsersReturnMap" resultType="com.self.pojo.User">
+   		select * from User where username like #{username}
+   </select>
+</mapper>

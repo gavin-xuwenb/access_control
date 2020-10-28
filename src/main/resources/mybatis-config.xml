@@ -16,7 +16,7 @@
     		resource: 引入类路径下的资源 （相对路径-推荐）
     		url: 引入网络路径或者磁盘路径下的资源 （绝对路径）
      -->
-    <properties resource="dbconfig.properties"></properties>
+    <properties resource="application.properties"></properties>
     
     <!-- 
     	2. settings 包含很多重要的设置项
@@ -25,6 +25,10 @@
     <settings>
         <!-- 开启驼峰匹配，比如数据库字段名叫last_name ,bean中可以写成 lastName -->
     	<setting name="mapUnderscoreToCamelCase" value="true" />
+    	
+    	<!--  
+    	<setting name="useGeneratedKeys" value="true" />
+    	-->
     	<!-- oracle不支持null值传入，需要特别设置 -->
     	<setting name="jdbcTypeForNull" value="NULL" />
     	
@@ -94,13 +98,13 @@
             <!-- 单独使用时配置成MANAGED没有事务 -->
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${mysql.driver}"/>
-                <property name="url" value="${mysql.url}"/>
-                <property name="username" value="${mysql.username}"/>
-                <property name="password" value="${mysql.password}"/>
+                <property name="driver" value="${spring.datasource.driver-class-name}"/>
+                <property name="url" value="${spring.datasource.url}"/>
+                <property name="username" value="${spring.datasource.username}"/>
+                <property name="password" value="${spring.datasource.password}"/>
             </dataSource>
         </environment>
-        
+        <!--  
         <environment id="sqlserver">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -110,6 +114,7 @@
                 <property name="password" value="${sqlserver.password}"/>
             </dataSource>
         </environment>
+        -->
     </environments>
 	
 	<!-- 
@@ -135,7 +140,7 @@
         <!-- 
           批量注册 : xml 文件需要放置在和接口dao同目录下，且文件名一致（后缀不一致 .java  和 .xml）
          -->
-         <package name="com.xu.dao"></package>
+         <package name="com.self.dao"></package>
     </mappers>
 
 </configuration>

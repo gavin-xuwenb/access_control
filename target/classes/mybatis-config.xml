@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 
+        子标签项是有顺序的:(可以没有)
+        
+    	properties,settings,typeAliases,typeHandlers,objectFactory,objectWrapperFactory
+    	reflectorFactory,plugins,environments,databaseIdProvider,mappers
+    	
+    -->
+    
+    
+    <!-- 
+    	1. mybatis 可以使用properties来引入外部的配置文件
+    		resource: 引入类路径下的资源 （相对路径-推荐）
+    		url: 引入网络路径或者磁盘路径下的资源 （绝对路径）
+     -->
+    <properties resource="dbconfig.properties"></properties>
+    
+    <!-- 
+    	2. settings 包含很多重要的设置项
+    	注意:所有需要用到的配置，最好显式声明，不要用默认值，不同的mybatis版本，默认值会不一样
+     -->
+    <settings>
+        <!-- 开启驼峰匹配，比如数据库字段名叫last_name ,bean中可以写成 lastName -->
+    	<setting name="mapUnderscoreToCamelCase" value="true" />
+    	<!-- oracle不支持null值传入，需要特别设置 -->
+    	<setting name="jdbcTypeForNull" value="NULL" />
+    	
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <!-- 控制全局缓存（二级缓存）-->
+        <setting name="cacheEnabled" value="true"/>
+        
+        <!-- 延迟加载的全局开关。当开启时，所有关联对象都会延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 当开启时，任何方法的调用都会加载该对象的所有属性。可通过select标签的 fetchType来覆盖-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        
+        <!--  Mybatis 创建具有延迟加载能力的对象所用到的代理工具，默认JAVASSIST -->
+        <!--<setting name="proxyFactory" value="CGLIB" />-->
+        <!-- STATEMENT级别的缓存，使一级缓存，只针对当前执行的这一statement有效 -->
+        <!--
+                <setting name="localCacheScope" value="STATEMENT"/>
+        -->
+        <setting name="localCacheScope" value="SESSION"/>
+    </settings>
+
+    <!--  
+    	3. typeAliases别名处理器：可以为我们的java类型起别名
+    			这样 xml 映射文件中的 resultType 就不用写那么长的全类名
+    	   别名不区分大小写
+    	   
+    	   基本类型已经默认了一些别名
+    -->
+    <typeAliases>
+    	<!-- 
+    		typeAlias:为某个java类型起别名
+    			type: 指定要起别名的全类名；默认别名就是类名小写：employee,不建议默认
+    			alias:指定新的别名
+    	 -->
+    	<typeAlias type="com.xu.bean.Employee" alias="employee"></typeAlias>
+    	
+    	<!-- 
+    		package: 为某个包下面的所有类 批量 起别名
+    			name:指定包名称，当前包以及下面的子包 的子类都起一个默认的别名，就是类名的小写
+    		问题：包下面的类名有重复，需要给重复的那个类,使用@Alias("newname") 为类指定自定义的别名
+    	 -->
+    	<package name="com.xu.bean"></package>
+    </typeAliases>
+    
+    
+    
+<!--    <typeHandlers>
+        <typeHandler handler="com.wuzz.type.MyTypeHandler"></typeHandler>
+    </typeHandlers>-->
+
+    <!-- 对象工厂 -->
+<!--    <objectFactory type="com.wuzz.objectfactory.GPObjectFactory">
+        <property name="wuzz" value="666"/>
+    </objectFactory>-->
+
+<!--    <plugins>
+        <plugin interceptor="com.wuzz.interceptor.SQLInterceptor">
+            <property name="wuzz" value="betterme" />
+        </plugin>
+        <plugin interceptor="com.wuzz.interceptor.MyPageInterceptor">
+        </plugin>
+    </plugins>-->
+
+    <environments default="mysql">
+        <environment id="mysql">
+            <!-- 单独使用时配置成MANAGED没有事务 -->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+        
+        <environment id="sqlserver">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${sqlserver.driver}"/>
+                <property name="url" value="${sqlserver.url}"/>
+                <property name="username" value="${sqlserver.username}"/>
+                <property name="password" value="${sqlserver.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+	
+	<!-- 
+		databaseIdProvider 支持多数据库厂商
+			多数据源的情况下使用，一个数据库用不到
+			type : DB_VENDOR  作用就是得到数据库厂商的标识
+			MySQL,Oracle,SQL Server
+			为不同的数据库厂商起别名.xml文件的里面的每一个select 里面 添加属性 databaseId="mysql"
+	 -->
+	<!--  
+	<databaseIdProvider type="DB_VENDOR">
+		<property name="MySQL" value="mysql"/>
+		<property name="Oracle" value="oracle"/>
+		<property name="SQL Server" value="sqlserver"/>
+	</databaseIdProvider>
+	-->
+	
+    <mappers>
+        <!--  
+        <mapper resource="mapping/EmployeeMapper.xml"/>
+        <mapper resource="mapping/EmployeeMapper2.xml"/>
+        -->
+        <!-- 
+          批量注册 : xml 文件需要放置在和接口dao同目录下，且文件名一致（后缀不一致 .java  和 .xml）
+         -->
+         <package name="com.xu.dao"></package>
+    </mappers>
+
+</configuration>

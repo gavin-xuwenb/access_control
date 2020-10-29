@@ -7,11 +7,15 @@ import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+
 import com.self.pojo.User;
+
 @Mapper
 public interface UserMapper {
 	
 	public User getUserById(Integer id);
+	
+	public User getUserByName(String useranme);
 	
 	public User getUserByMap(Map<String,Object> map);
 	
@@ -35,4 +39,7 @@ public interface UserMapper {
 	//使用@MapKey告知mybatis 使用哪个字段作为key
 	@MapKey("id")
 	public Map<Integer,User> getUsersReturnMap(String lastName);
+	
+	//查询所有用户
+	public List<User> selectAll();
 }

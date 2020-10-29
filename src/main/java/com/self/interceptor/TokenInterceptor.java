@@ -3,7 +3,7 @@ package com.self.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.self.utils.JSONResult;
+import com.self.utils.JSONResult_bak;
 import com.self.utils.TokenUtil;
 
 import net.sf.json.JSONObject;
@@ -37,7 +37,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = null;  
         //将实体对象转换为JSON Object转换  
-        JSONObject responseJSONObject = JSONObject.fromObject(JSONResult.errorTokenMsg("会话认证失败"));  
+        JSONObject responseJSONObject = JSONObject.fromObject(JSONResult_bak.errorTokenMsg("会话认证失败"));  
         try{
         	out = response.getWriter();
         	out.append(responseJSONObject.toString());

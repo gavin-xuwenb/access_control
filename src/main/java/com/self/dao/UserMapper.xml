@@ -15,7 +15,16 @@
     from User where id = #{id}
   </select>
   
+  <select id="getUserByName" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User where username = #{username}
+  </select>
   
+  
+  <select id="selectAll" resultType="com.self.pojo.User">
+  	select id,username,password
+    from User
+  </select>
   <!-- 
   多个参数,mybatis会做特殊处理
   多个参数会被封装成一个map

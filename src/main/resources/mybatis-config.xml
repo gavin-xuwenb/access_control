@@ -64,14 +64,15 @@
     			type: 指定要起别名的全类名；默认别名就是类名小写：employee,不建议默认
     			alias:指定新的别名
     	 -->
-    	<typeAlias type="com.xu.bean.Employee" alias="employee"></typeAlias>
-    	
+    	 <!--  
+    	    <typeAlias type="com.xu.bean.Employee" alias="employee"></typeAlias>
+    	 -->
     	<!-- 
     		package: 为某个包下面的所有类 批量 起别名
     			name:指定包名称，当前包以及下面的子包 的子类都起一个默认的别名，就是类名的小写
     		问题：包下面的类名有重复，需要给重复的那个类,使用@Alias("newname") 为类指定自定义的别名
     	 -->
-    	<package name="com.xu.bean"></package>
+    	<package name="com.self.bean"></package>
     </typeAliases>
     
     
@@ -93,7 +94,7 @@
         </plugin>
     </plugins>-->
 
-    <environments default="mysql">
+    <environments default="sqlserver">
         <environment id="mysql">
             <!-- 单独使用时配置成MANAGED没有事务 -->
             <transactionManager type="JDBC"/>
@@ -104,17 +105,17 @@
                 <property name="password" value="${spring.datasource.password}"/>
             </dataSource>
         </environment>
-        <!--  
+         
         <environment id="sqlserver">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${sqlserver.driver}"/>
-                <property name="url" value="${sqlserver.url}"/>
-                <property name="username" value="${sqlserver.username}"/>
-                <property name="password" value="${sqlserver.password}"/>
+                <property name="driver" value="${spring.datasource.driver-class-name}"/>
+                <property name="url" value="${spring.datasource.url}"/>
+                <property name="username" value="${spring.datasource.username}"/>
+                <property name="password" value="${spring.datasource.password}"/>
             </dataSource>
         </environment>
-        -->
+
     </environments>
 	
 	<!-- 

@@ -1,5 +1,10 @@
 package com.self.pojo;
 
+/**
+ * 员工
+ * @author xuwenbin
+ *
+ */
 public class Employee {
 
 	private  Integer seq;

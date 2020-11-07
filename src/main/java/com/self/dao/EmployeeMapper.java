@@ -10,4 +10,7 @@ import com.self.pojo.Employee;
 public interface EmployeeMapper {
 
 	public List<Employee> getEmpByName(String cname);
+	
+	//查询所有用户
+	public List<Employee> selectAll();
 }

@@ -21,9 +21,9 @@
   
   
   <select id="selectAll" resultType="com.self.pojo.Employee">
-  	select id,username,password
-    from User
+  	select  * from F101
   </select>
+
   <!-- 
   多个参数,mybatis会做特殊处理
   多个参数会被封装成一个map

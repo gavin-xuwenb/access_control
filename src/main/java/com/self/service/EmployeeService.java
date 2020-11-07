@@ -18,4 +18,8 @@ public class EmployeeService {
     public List<Employee> getEmpByName(String cname) {
     	return employeeMapper.getEmpByName(cname);
     }
+    
+    public List<Employee> selectAll(){
+    	return employeeMapper.selectAll();
+    }
 }

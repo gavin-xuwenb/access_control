@@ -21,6 +21,11 @@
   
   <!-- 依赖关系 -->
     <dependencies>
+    	<dependency>
+		    <groupId>io.netty</groupId>
+		    <artifactId>netty-all</artifactId>
+		    <version>4.1.50.Final</version>
+		</dependency>
         <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

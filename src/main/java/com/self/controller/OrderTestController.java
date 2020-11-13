@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.self.tcp.TCPClient;
 import com.self.utils.JSONResult;
-import com.self.utils.TCPClient;
 import com.self.utils.nettyClient.SocketClient;
 
 import cn.hutool.json.JSONObject;

@@ -9,7 +9,7 @@
      #{id}:  从传递过来的参数中取id值
    -->
   
-  <select id="getAll" resultType="com.self.pojo.Machine">
-  	select * from  from F113
+  <select id="selectAll" resultType="com.self.pojo.Machine">
+  	select * from  F113
   </select>
 </mapper>

@@ -15,7 +15,7 @@ public class MachineService {
 	@Autowired
 	MachineMapper machineMapper;
 	//根据用户名查询用户
-    public List<Machine> getAll() {
-    	return machineMapper.getAll();
+    public List<Machine> selectAll() {
+    	return machineMapper.selectAll();
     }
 }

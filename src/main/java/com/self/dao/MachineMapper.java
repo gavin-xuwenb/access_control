@@ -9,5 +9,5 @@ import com.self.pojo.Machine;
 @Mapper
 public interface MachineMapper {
 	
-	public List<Machine> getAll();
+	public List<Machine> selectAll();
 }

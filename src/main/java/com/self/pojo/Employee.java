@@ -1,5 +1,7 @@
 package com.self.pojo;
 
+import org.apache.commons.codec.binary.Base64;
+
 /**
  * 员工
  * @author xuwenbin
@@ -66,6 +68,18 @@ public class Employee {
 	private  String userfd8;
 	private  String userfd9;
 	private  String userfd10;
+	
+	private  String cardseq;
+	private  String isenable;
+	private  String isvendor;
+	private  String companyno;
+	private  String wg26cardno;
+	private  String passwordchangetime;
+	private  byte[] picture;//保存图片的字段
+	
+	private  String picBase64;
+	private  String elevator;
+	private  String datedel;
 	
 	public Integer getSeq() {
 		return seq;
@@ -439,12 +453,6 @@ public class Employee {
 	public void setPasswordchangetime(String passwordchangetime) {
 		this.passwordchangetime = passwordchangetime;
 	}
-	public String getPicture() {
-		return picture;
-	}
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
 	public String getElevator() {
 		return elevator;
 	}
@@ -457,13 +465,16 @@ public class Employee {
 	public void setDatedel(String datedel) {
 		this.datedel = datedel;
 	}
-	private  String cardseq;
-	private  String isenable;
-	private  String isvendor;
-	private  String companyno;
-	private  String wg26cardno;
-	private  String passwordchangetime;
-	private  String picture;
-	private  String elevator;
-	private  String datedel;
+	public byte[] getPicture() {
+		return picture;
+	}
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+	public String getPicBase64() {
+		return new String(Base64.encodeBase64(this.picture));
+	}
+	public void setPicBase64(String picBase64) {
+		this.picBase64 = picBase64;
+	}
 }

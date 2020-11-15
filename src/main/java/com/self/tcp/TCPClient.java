@@ -13,13 +13,25 @@ import com.self.utils.nettyClient.StringUtil;
 
 public class TCPClient {
 
+	private static String serverIp = "192.168.1.127";
+	private static int port = 1621;
+	
 	public static String sendMessage(String str) throws IOException {
 		BufferedInputStream bis = null;
 		DataInputStream dis = null;
 		DataOutputStream dos = null; //向服务器写流
-		Socket clientSocket =  new Socket("192.168.1.127", 1621);
+		
+		Socket clientSocket = null;
+		SocketAddress socketAddress = null;
+		
+		
 		String ret = "";
 		try {
+			
+			clientSocket =  new Socket();
+			socketAddress = new InetSocketAddress(serverIp, port);
+			clientSocket.connect(socketAddress, 2000);
+			
 			//发送数据
 			dos = new DataOutputStream(clientSocket.getOutputStream());
 			dos.write(StringUtil.toByteArray(str));

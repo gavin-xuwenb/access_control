@@ -69,23 +69,30 @@ public class Protocol_721E_Util {
 	 */
 	public static String timeForat(String longTimeStr) {
 		
-		if(StringUtils.isBlank(longTimeStr) && longTimeStr.length()<24) {
+		if(StringUtils.isBlank(longTimeStr)) {
 			return "GET FAILD";
 		} else {
-		    //硬件返回的年份是不精确的 year % 100  的余数，1901  和 2001  ，2101 返回值会一样
-			//相隔100年以上才会出现误差，所有基本可以忽略
-			//查询时间的时候，前缀默认为当前年份，这样进一步减小误差的可能
-			Calendar sysdate = Calendar.getInstance();
-	        String year_prefix = String.valueOf(sysdate.get(Calendar.YEAR)).substring(0, 2);
+			//硬件返回的 每个字节中间有个空格
+			longTimeStr = longTimeStr.replaceAll(" ", "");
 			
-			String year = year_prefix + refill2(Integer.parseInt(longTimeStr.substring(22, 24), 16));
-			String month = refill2(Integer.parseInt(longTimeStr.substring(20, 22), 16));
-			String date = refill2(Integer.parseInt(longTimeStr.substring(18, 20), 16));
-			String hour = refill2(Integer.parseInt(longTimeStr.substring(14, 16), 16));
-			String minute = refill2(Integer.parseInt(longTimeStr.substring(12, 14), 16));
-			String second = refill2(Integer.parseInt(longTimeStr.substring(10, 12), 16));
-
-			return year+"/"+month+"/"+date+" "+hour+":"+minute+":"+second;
+			if(longTimeStr.length()<24) {
+				return "GET FAILD";
+			}else {
+			    //硬件返回的年份是不精确的 year % 100  的余数，1901  和 2001  ，2101 返回值会一样
+				//相隔100年以上才会出现误差，所有基本可以忽略
+				//查询时间的时候，前缀默认为当前年份，这样进一步减小误差的可能
+				Calendar sysdate = Calendar.getInstance();
+		        String year_prefix = String.valueOf(sysdate.get(Calendar.YEAR)).substring(0, 2);
+				
+				String year = year_prefix + refill2(Integer.parseInt(longTimeStr.substring(22, 24), 16));
+				String month = refill2(Integer.parseInt(longTimeStr.substring(20, 22), 16));
+				String date = refill2(Integer.parseInt(longTimeStr.substring(18, 20), 16));
+				String hour = refill2(Integer.parseInt(longTimeStr.substring(14, 16), 16));
+				String minute = refill2(Integer.parseInt(longTimeStr.substring(12, 14), 16));
+				String second = refill2(Integer.parseInt(longTimeStr.substring(10, 12), 16));
+	
+				return year+"/"+month+"/"+date+" "+hour+":"+minute+":"+second;
+			}
 		}
 	}
 	

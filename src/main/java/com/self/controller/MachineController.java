@@ -41,11 +41,11 @@ public class MachineController {
 	
 	
 	@GetMapping("getTime")
-    public JSONObject getTime(int tid) {
+    public JSONObject getTime(int tid,String ip,int port) {
  		try {
  			 String cmdStr = Protocol_721E_Util.getFullHexStr(tid,Command.GET_TIME.getValue(), "");
  			 System.out.println("发送指令："+cmdStr);
-			 String str = TCPClient.sendMessage(cmdStr);
+			 String str = TCPClient.sendMessage(cmdStr,ip,port);
 			 System.out.println("返回消息："+str);
 			 return JSONResult.ok(Protocol_721E_Util.timeForat(str));
 		} catch (IOException e) {
@@ -55,11 +55,11 @@ public class MachineController {
 	
 	
 	@GetMapping("setTime")
-    public JSONObject setTime(int tid) {
+    public JSONObject setTime(int tid,String ip,int port) {
  		try {
  			 String cmdStr = Protocol_721E_Util.getFullHexStr(tid, Command.SET_TIME.getValue(), Protocol_721E_Util.getTimeDATA());
  			 System.out.println("发送指令："+cmdStr);
-			 String str = TCPClient.sendMessage(cmdStr);
+			 String str = TCPClient.sendMessage(cmdStr,ip,port);
 			 System.out.println("返回消息："+str);
 			 return JSONResult.ok(str);
 		} catch (IOException e) {
@@ -69,11 +69,11 @@ public class MachineController {
 	
 	
 	@GetMapping("openDoor")
-    public JSONObject openDoor(int tid) {
+    public JSONObject openDoor(int tid,String ip,int port) {
  		try {
  			 String cmdStr = Protocol_721E_Util.getFullHexStr(tid, Command.OPEN_DOOR.getValue(), "8401");
  			 System.out.println("发送指令："+cmdStr);
-			 String str = TCPClient.sendMessage(cmdStr);
+			 String str = TCPClient.sendMessage(cmdStr,ip,port);
 			 System.out.println("返回消息："+str);
 			 return JSONResult.ok(str);
 		} catch (IOException e) {

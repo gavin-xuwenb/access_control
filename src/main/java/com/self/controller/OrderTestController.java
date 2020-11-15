@@ -24,7 +24,7 @@ public class OrderTestController {
 	 		
 	 		System.out.println("发送指令："+cmdStr);
 	 		try {
-				 String str = TCPClient.sendMessage(cmdStr);
+				 String str = TCPClient.sendMessage(cmdStr,"192.168.1.127",1621);
 				 System.out.println("返回消息："+str);
 				 return JSONResult.ok(str);
 			} catch (IOException e) {

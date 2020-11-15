@@ -120,7 +120,7 @@ public class Protocol_721E_Util {
 	 * @return
 	 */
 	public static String refill2(int str) {
-		return str > 10?(""+str):("0" +str);
+		return str >= 10?(""+str):("0" +str);
 	}
 	
 	public static void main(String[] args) {

@@ -1,5 +1,9 @@
 package com.self.utils;
 
+import java.util.Calendar;
+
+import org.apache.commons.lang.StringUtils;
+
 public class Protocol_721E_Util {
 	static String  HEAD =  "7E"; //协议头，固定值
 	/**
@@ -58,12 +62,74 @@ public class Protocol_721E_Util {
 		return Integer.toHexString(digital+256).substring(1).toUpperCase();
 	}
 	
+	/**
+	 * 硬件返回的16进制字符串  转换成时间格式
+	 * @param longTimeStr
+	 * @return
+	 */
+	public static String timeForat(String longTimeStr) {
+		
+		if(StringUtils.isBlank(longTimeStr) && longTimeStr.length()<24) {
+			return "GET FAILD";
+		} else {
+		    //硬件返回的年份是不精确的 year % 100  的余数，1901  和 2001  ，2101 返回值会一样
+			//相隔100年以上才会出现误差，所有基本可以忽略
+			//查询时间的时候，前缀默认为当前年份，这样进一步减小误差的可能
+			Calendar sysdate = Calendar.getInstance();
+	        String year_prefix = String.valueOf(sysdate.get(Calendar.YEAR)).substring(0, 2);
+			
+			String year = year_prefix + refill2(Integer.parseInt(longTimeStr.substring(22, 24), 16));
+			String month = refill2(Integer.parseInt(longTimeStr.substring(20, 22), 16));
+			String date = refill2(Integer.parseInt(longTimeStr.substring(18, 20), 16));
+			String hour = refill2(Integer.parseInt(longTimeStr.substring(14, 16), 16));
+			String minute = refill2(Integer.parseInt(longTimeStr.substring(12, 14), 16));
+			String second = refill2(Integer.parseInt(longTimeStr.substring(10, 12), 16));
+
+			return year+"/"+month+"/"+date+" "+hour+":"+minute+":"+second;
+		}
+	}
+	
+	/**
+	 * 将当前系统时间 装换16进制格式字符串
+	 * 
+	 * Second + Minute + Hour + dayOfWeek + dayOfMonth + Month + (Year % 100)
+	 * @return
+	 */
+    public static String getTimeDATA() {
+    	Calendar sysdate = Calendar.getInstance();
+    	String year = tenTo16str(sysdate.get(Calendar.YEAR)%100);
+    	String month = tenTo16str(sysdate.get(Calendar.MONTH));
+    	String dayOfMonth = tenTo16str(sysdate.get(Calendar.DAY_OF_MONTH));
+    	String dayOfWeek = tenTo16str(sysdate.get(Calendar.DAY_OF_WEEK)); //1-7 周日-周六
+    	String hour = tenTo16str(sysdate.get(Calendar.HOUR_OF_DAY)); //24小时制
+    	String minute = tenTo16str(sysdate.get(Calendar.MINUTE));
+    	String second = tenTo16str(sysdate.get(Calendar.SECOND));
+		return second+minute+hour+dayOfWeek+dayOfMonth+month+year;
+	}
+	
+	/**
+	 * 补齐2位数---左补0
+	 * @param longTimeStr
+	 * @return
+	 */
+	public static String refill2(int str) {
+		return str > 10?(""+str):("0" +str);
+	}
+	
 	public static void main(String[] args) {
-		//机器号  "1"
-		//指令    "21"
-		//DATA   "8401"
-		String str = getFullHexStr(1,"21","8401");
-		System.out.println(str);
+		//远程开门  机器号  "1" 指令    "21"   DATA   "8401"
+		//String str = getFullHexStr(1,"21","8401");
+		
+		
+		//获取机器时间  机器号  "1" 指令    "24"   DATA  ""
+		//7E 24 00 03 01 04       06      0D    01              0F    0B      14         43 01 02 00 C5 ...
+		//               second   minute  Hour  day of week     date  month   year%100
+		//               04       06      13    1-7 周日-周六     15    11      20-->2020
+		
+		System.out.println(getFullHexStr(1,"24",""));
+		System.out.println(timeForat("7E2400030104060D010F0B14"));
+		System.out.println(getTimeDATA());
+		System.out.println(getFullHexStr(1,"23","00010203040520"));
 	}
 
 }

@@ -12,4 +12,9 @@ public interface SystemUserMapper {
 	
 	//查询所有用户
 	public List<SystemUser> selectAll();
+	
+	//删除用户
+	public boolean delUser(String seq);
+	//添加用户
+	public boolean addUser(SystemUser user);
 }

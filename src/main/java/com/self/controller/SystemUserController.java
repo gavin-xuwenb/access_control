@@ -28,4 +28,19 @@ public class SystemUserController {
         PageInfo<SystemUser> pageInfo=new PageInfo<>(userList);
         return JSONResult.ok(userList,pageInfo.getSize());
     }
+	
+	@GetMapping("addUser")
+    public JSONObject addUser(String name, String password){
+		SystemUser user  = new SystemUser();
+		user.setF999_01(name);
+		user.setF999_02(password);
+        boolean flag = userService.addUser(user);
+        return JSONResult.ok(flag);
+    }
+	
+	@GetMapping("delUser")
+    public JSONObject delUser(String seq){
+        boolean line = userService.delUser(seq);
+        return JSONResult.ok(line);
+    }
 }

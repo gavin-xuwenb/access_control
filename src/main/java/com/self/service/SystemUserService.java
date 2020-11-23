@@ -22,4 +22,12 @@ public class SystemUserService {
     public List<SystemUser> selectAll(){
     	return systemUserMapper.selectAll();
     }
+    
+    public boolean delUser(String seq){
+    	return systemUserMapper.delUser(seq);
+    }
+    
+    public boolean addUser(SystemUser user){
+    	return systemUserMapper.addUser(user);
+    }
 }

@@ -12,4 +12,13 @@
   <select id="selectAll" resultType="com.self.pojo.SystemUser">
   	select * from  F999
   </select>
+  
+  <delete id="delUser">
+  	delete  from  F999 where seq=#{seq}
+  </delete>
+  
+  <insert id="addUser" parameterType="com.self.pojo.SystemUser" useGeneratedKeys="true" keyProperty="seq">
+  	insert into F999(F999_01,F999_02) 
+  	values(#{F999_01},#{F999_02})
+  </insert>
 </mapper>

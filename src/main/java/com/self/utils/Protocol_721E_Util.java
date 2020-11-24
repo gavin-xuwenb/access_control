@@ -105,12 +105,13 @@ public class Protocol_721E_Util {
     public static String getTimeDATA() {
     	Calendar sysdate = Calendar.getInstance();
     	String year = tenTo16str(sysdate.get(Calendar.YEAR)%100);
-    	String month = tenTo16str(sysdate.get(Calendar.MONTH));
+    	String month = tenTo16str(sysdate.get(Calendar.MONTH)+1);
     	String dayOfMonth = tenTo16str(sysdate.get(Calendar.DAY_OF_MONTH));
     	String dayOfWeek = tenTo16str(sysdate.get(Calendar.DAY_OF_WEEK)); //1-7 周日-周六
     	String hour = tenTo16str(sysdate.get(Calendar.HOUR_OF_DAY)); //24小时制
     	String minute = tenTo16str(sysdate.get(Calendar.MINUTE));
     	String second = tenTo16str(sysdate.get(Calendar.SECOND));
+    	
 		return second+minute+hour+dayOfWeek+dayOfMonth+month+year;
 	}
 	

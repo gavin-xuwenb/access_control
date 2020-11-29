@@ -26,7 +26,7 @@ public class SystemUserController {
         PageHelper.startPage(pageNum,pageSize);
         List<SystemUser> userList = userService.selectAll();
         PageInfo<SystemUser> pageInfo=new PageInfo<>(userList);
-        return JSONResult.ok(userList,pageInfo.getSize());
+        return JSONResult.ok(userList,pageInfo.getTotal());
     }
 	
 	@GetMapping("addUser")

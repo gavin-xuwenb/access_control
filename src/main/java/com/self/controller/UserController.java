@@ -98,6 +98,6 @@ public class UserController{
         PageHelper.startPage(pageNum,pageSize);
         List<User> userList = userService.selectAll();
         PageInfo<User> pageInfo=new PageInfo<>(userList);
-        return JSONResult.ok(userList,pageInfo.getSize());
+        return JSONResult.ok(userList,pageInfo.getTotal());
     }
 }

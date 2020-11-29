@@ -31,7 +31,7 @@ public class EmployeeController {
 	 		PageHelper.startPage(pageNum,pageSize);
 	        List<Employee> userList = employeeService.getEmpByName("%"+cname+"%");
 	        PageInfo<Employee> pageInfo=new PageInfo<>(userList);
-	        return JSONResult.ok(userList,pageInfo.getSize());
+	        return JSONResult.ok(userList,pageInfo.getTotal());
 	        
 	    }
 	 
@@ -40,6 +40,6 @@ public class EmployeeController {
 	        PageHelper.startPage(pageNum,pageSize);
 	        List<Employee> userList = employeeService.selectAll();
 	        PageInfo<Employee> pageInfo=new PageInfo<>(userList);
-	        return JSONResult.ok(userList,pageInfo.getSize());
+	        return JSONResult.ok(userList,pageInfo.getTotal());
 	    }
 }

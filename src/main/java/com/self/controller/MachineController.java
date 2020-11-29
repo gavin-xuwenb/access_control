@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.self.pojo.Employee;
 import com.self.pojo.Machine;
 import com.self.service.MachineService;
 import com.self.tcp.Command;
@@ -26,8 +28,11 @@ public class MachineController {
 	
 	@GetMapping("selectAll")
     public JSONObject selectAll(){
+        
+        PageHelper.startPage(1,50);
         List<Machine> mList = machineService.selectAll();
-        return JSONResult.ok(mList,mList.size());
+        PageInfo<Machine> pageInfo=new PageInfo<>(mList);
+        return JSONResult.ok(mList,pageInfo.getTotal());
     }
 	
 	

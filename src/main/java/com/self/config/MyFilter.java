@@ -28,7 +28,13 @@ public class MyFilter implements Filter{
 	    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, client_id, uuid, Authorization");
 	    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // 支持HTTP 1.1.
 	    response.setHeader("Pragma", "no-cache"); // 支持HTTP 1.0. response.setHeader("Expires", "0");
+	    //response.setHeader("Location", "http://www.baidu.com"); // 支持HTTP 1.0. response.setHeader("Expires", "0");
+	    //response.setHeader("Refresh", "3;url=http://www.baidu.com");
+	    
+	    //response.setStatus(302);//临时定向响应码
 
+	    //response.setHeader("Location", "http://www.baidu.com");
+	    
 	    chain.doFilter(sRequest, sResponse);
 		
 	}

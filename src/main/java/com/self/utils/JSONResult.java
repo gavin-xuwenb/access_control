@@ -79,7 +79,7 @@ public class JSONResult {
 	}
 	
 	//参数object是list集合
-	public static JSONObject ok(Object object,Integer count) {
+	public static JSONObject ok(Object object,Long count) {
 		JSONObject json =JSONUtil.createObj();
 		JSONObject json_list =JSONUtil.createObj();
 		json_list.put("list", object);

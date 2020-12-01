@@ -6,8 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
@@ -39,6 +38,20 @@ public class EmployeeController {
 	    public JSONObject findByPaging(Integer pageNum, Integer pageSize){
 	        PageHelper.startPage(pageNum,pageSize);
 	        List<Employee> userList = employeeService.selectAll();
+	        PageInfo<Employee> pageInfo=new PageInfo<>(userList);
+	        return JSONResult.ok(userList,pageInfo.getTotal());
+	    }
+	    
+	    @GetMapping("selectListByName")
+	    public JSONObject selectListByName(String cname,Integer pageNum, Integer pageSize){
+	        PageHelper.startPage(pageNum,pageSize);
+	        List<Employee> userList = null;
+	        if(StringUtils.isBlank(cname)) {
+	        	 userList = employeeService.selectListByName(null);
+	        }else {
+	        	 userList = employeeService.selectListByName("%"+cname+"%");
+	        }
+	        
 	        PageInfo<Employee> pageInfo=new PageInfo<>(userList);
 	        return JSONResult.ok(userList,pageInfo.getTotal());
 	    }

@@ -23,6 +23,15 @@
   <select id="selectAll" resultType="com.self.pojo.Employee">
   	select  * from F101
   </select>
+  
+  <select id="selectListByName" resultType="com.self.pojo.Employee">
+  	select  * from F101 where 1=1
+  	<choose>
+  		<when test="cname!=null">
+  			and cname  like #{cname}
+  		</when>
+  	</choose>
+  </select>
 
   <!-- 
   多个参数,mybatis会做特殊处理

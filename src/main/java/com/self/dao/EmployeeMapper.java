@@ -13,4 +13,7 @@ public interface EmployeeMapper {
 	
 	//查询所有用户
 	public List<Employee> selectAll();
+	
+	//查询所有用户
+	public List<Employee> selectListByName(String cname);
 }

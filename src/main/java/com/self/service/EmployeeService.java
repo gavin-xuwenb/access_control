@@ -22,4 +22,8 @@ public class EmployeeService {
     public List<Employee> selectAll(){
     	return employeeMapper.selectAll();
     }
+    
+    public List<Employee> selectListByName(String cname){
+    	return employeeMapper.selectListByName(cname);
+    }
 }

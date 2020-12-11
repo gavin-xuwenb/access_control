@@ -26,4 +26,8 @@ public class EmployeeService {
     public List<Employee> selectListByName(String cname){
     	return employeeMapper.selectListByName(cname);
     }
+    
+    public boolean updateBydoor(Employee employee){
+    	return employeeMapper.updateBydoor(employee);
+    }
 }

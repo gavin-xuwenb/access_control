@@ -32,6 +32,13 @@
   		</when>
   	</choose>
   </select>
+  
+  <!-- parameterType="com.self.pojo.User" 可省略 -->
+   <update id="updateBydoor">
+   		update F101
+   		set doorsat1=#{doorsat1}
+   		where seq=#{seq}
+   </update>
 
   <!-- 
   多个参数,mybatis会做特殊处理
@@ -93,6 +100,7 @@
    		set username=#{username},password=#{password},gender=#{gender}
    		where id=#{id}
    </update>
+   
    
    <delete id="deleteUser">
    		delete from User where id=#{id}

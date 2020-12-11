@@ -16,4 +16,6 @@ public interface EmployeeMapper {
 	
 	//查询所有用户
 	public List<Employee> selectListByName(String cname);
+	
+	public boolean updateBydoor(Employee employee);
 }

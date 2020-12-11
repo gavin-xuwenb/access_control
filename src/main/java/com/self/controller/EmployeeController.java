@@ -55,4 +55,13 @@ public class EmployeeController {
 	        PageInfo<Employee> pageInfo=new PageInfo<>(userList);
 	        return JSONResult.ok(userList,pageInfo.getTotal());
 	    }
+	    
+	    @GetMapping("updateBydoor")
+	    public JSONObject updateBydoor(Integer seq,String doorsat1){
+    		Employee employee = new Employee();
+    		employee.setSeq(seq);
+    		employee.setDoorsat1(doorsat1);
+        	boolean flag = employeeService.updateBydoor(employee);
+	        return JSONResult.ok(flag);
+	    }
 }

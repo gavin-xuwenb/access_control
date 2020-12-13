@@ -50,4 +50,24 @@ public class HexUtil {
     public static int hex2int(String value) {
     	return Integer.decode("0x"+value);
     }
+    
+    //十进制数值 转换成 2位的16进制字符串 
+  	public static String tenTo16str(int digital) {
+  		/**
+  		 * 为啥要加256？  256为16的平方
+  		 * 这里是个小的技巧，比如十进制数2, 对应的16进制就是'2'，但是我这边16进制要取两位,变成 '02' 怎么办？
+  		 * 256对应16进制第3高位的1，'1xx'
+  		 * 2+256对应的16进制就是 '102'，然后 substring(1),舍掉高位的1（256）  就得到 '02'
+  		 */
+  		return Integer.toHexString(digital+256).substring(1).toUpperCase();
+  	}
+    
+    
+    public static void main(String[] args) {
+    	System.out.println(int2Hex(62000));
+//    	System.out.println(hex2int("029c"));
+//    	
+//    	System.out.println(int2Hex(1234));
+//    	System.out.println(hex2int("022b"));
+    }
 }

@@ -36,7 +36,9 @@
   <!-- parameterType="com.self.pojo.User" 可省略 -->
    <update id="updateBydoor">
    		update F101
-   		set doorsat1=#{doorsat1}
+   		set doorsat1=#{doorsat1},cname = #{cname},empno=#{empno},
+   			dept = #{dept},outdate = #{outdate},password=#{password},
+   			cardno = #{cardno},isvendor=#{isvendor}
    		where seq=#{seq}
    </update>
 
